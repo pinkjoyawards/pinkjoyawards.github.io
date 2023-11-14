@@ -136,6 +136,7 @@ function selectGame(em) {
 	em.setAttribute('style', 'opacity:1');
 	//console.log(em.parentNode.getAttribute('nomination'), em.children[1].innerHTML);
 	Result[em.parentNode.getAttribute('nomination') - 1] = em.children[1].innerText;
+	done();
 }
 
 //document.addEventListener("DOMContentLoaded", function(){alert('DOM готов');});
@@ -236,7 +237,7 @@ function selectGame(em) {
 	<div class="item" onclick="selectGame(this)">
 		<div id="image"><img src="images/2023/pizzatower.jpg"></div>
 		<div id="name">Pizza Tower</div>
-		<div id="developer">Capcom</div>
+		<div id="developer">Tour De Pizza</div>
 	</div>
 	<div class="item" onclick="selectGame(this)">
 		<div id="image"><img src="images/2023/re4.jpg"></div>
@@ -334,7 +335,7 @@ function selectGame(em) {
 	<div class="item" onclick="selectGame(this)">
 		<div id="image"><img src="images/2023/pizzatower.jpg"></div>
 		<div id="name">Pizza Tower</div>
-		<div id="developer">Capcom</div>
+		<div id="developer">Tour De Pizza</div>
 	</div>
 	<div class="item" onclick="selectGame(this)">
 		<div id="image"><img src="images/2023/re4.jpg"></div>
@@ -432,7 +433,7 @@ function selectGame(em) {
 	<div class="item" onclick="selectGame(this)">
 		<div id="image"><img src="images/2023/pizzatower.jpg"></div>
 		<div id="name">Pizza Tower</div>
-		<div id="developer">Capcom</div>
+		<div id="developer">Tour De Pizza</div>
 	</div>
 	<div class="item" onclick="selectGame(this)">
 		<div id="image"><img src="images/2023/re4.jpg"></div>
@@ -530,7 +531,7 @@ function selectGame(em) {
 	<div class="item" onclick="selectGame(this)">
 		<div id="image"><img src="images/2023/pizzatower.jpg"></div>
 		<div id="name">Pizza Tower</div>
-		<div id="developer">Capcom</div>
+		<div id="developer">Tour De Pizza</div>
 	</div>
 	<div class="item" onclick="selectGame(this)">
 		<div id="image"><img src="images/2023/re4.jpg"></div>
@@ -628,7 +629,7 @@ function selectGame(em) {
 	<div class="item" onclick="selectGame(this)">
 		<div id="image"><img src="images/2023/pizzatower.jpg"></div>
 		<div id="name">Pizza Tower</div>
-		<div id="developer">Capcom</div>
+		<div id="developer">Tour De Pizza</div>
 	</div>
 	<div class="item" onclick="selectGame(this)">
 		<div id="image"><img src="images/2023/re4.jpg"></div>
@@ -653,12 +654,10 @@ function selectGame(em) {
 </div>
 
 <div id="title-block">
-	<div id="title">Ваши результаты</div>
+	<div id="title">Ваши номинации</div>
 	<div id="sub-title">Отправьте для подсчёта</div>
 </div>
 
-<br>
-<div class="button" onclick="done()">Результаты</div><br>
 <textarea id="results"></textarea>
 <br><br>
 <div class="button" onclick="CopyToClipboard(document.getElementById('results').value);alert('Скопировано в буфер обмена');">Скопировать в буфер</div><br>
