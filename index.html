@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Розовый джойстик - ежегодная игровая номинация игр от народа</title>
+<link rel="stylesheet" href="slider.css">
+<style type="text/css">
+html,body{margin:0; padding:0;} 
+body{font-family:arial, helvetica, sans-serif; font-size:16px; background-color: black; font-color:white;}
+
+#main-menu{position:fixed; display:flex; font-size: 20px; font-weight: 700; justify-align:center; align-items:center; top:0; width:calc(100% - 60px); padding:0 30px; height:70px; z-index:9999; background: rgb(255,154,159); background: linear-gradient(121deg, rgba(255,154,159,1) 0%, rgba(255,128,134,1) 100%); }
+#main-menu img{display:inline-block; max-height:80%; padding:10px;}
+#main-menu a{display:inline-block; padding:28px 10px; font-weight:bold; color:black; text-decoration:none;}
+
+#wrapper{color:white; min-height:300px; margin:70px 40px 40px 40px;}
+#wrapper a{color:#777;text-decoration:none;} 
+#wrapper a:hover{color:black;}
+
+#title-block{padding-top:20px;}
+#title-block #title{font-size: 60px; color:#ff8086;}
+#title-block #sub-title{font-size: 30px;}
+#title-block #description{margin-top:10px; font-size: 14px;}
+
+#titles{display:flex; justify-content:flext-start; align-items:center; margin-top: 30px; flex-wrap: wrap;}
+#titles .item{width: 220px; padding:10px; margin: 0 20px 20px 0; transition-duration: 500ms; cursor:pointer;}
+#titles .item:hover{transform: translateY(10px);}
+#titles .item #image{width:100%; border:1px solid #ff9a9f; padding:10px;}
+#titles .item img{width:100%;}
+#titles .item #name{width:100%; font-size:20px; text-align:center; padding: 11px; background: rgb(255,154,159); background: linear-gradient(121deg, rgba(255,154,159,1) 0%, rgba(255,128,134,1) 100%); color:black; white-space:nowrap; overflow hidden; text-overflow:ellipsis; }
+#titles .item #name:hover{background: linear-gradient(121deg, rgba(255,154,159,1) 0%, rgba(255,154,159,1) 100%);}
+#titles .item #developer{width:100%; text-align: center; color: #aaaaaa; margin-top: 10px; font-size: 18px;}
+
+.button{
+	display: inline-block;
+	outline: 0;
+	border: none;
+	padding: 8px 18px;
+	color: black;
+	background: rgb(255,154,159);
+	background: linear-gradient(121deg, rgba(255,154,159,1) 0%, rgba(255,128,134,1) 100%);
+	user-select: none;
+	-webkit-user-select: none;
+	touch-action: manipulation;
+	cursor:pointer;
+}
+.button:hover, button:active{background: linear-gradient(180deg, #ef6e74 0%, #ef6e74 100%);}
+
+#results{width:450px; height:134px; font-size:16px; color:white; border: 1px solid #ff9a9f; background-color: black; margin-top:20px; outline:0;}
+
+#footer{margin-top: 40px; text-align:center;}
+
+#slider{display:flex; margin-top:20px; align-items:center;}
+#slider #left-btn, #slider #right-btn{font-size: 30px; padding:10px; cursor:pointer; color:#3a3a3a; }
+#slider #left-btn:hover, #slider #right-btn:hover{color:#ff0000; user-select:none;}
+#slider-title{padding:10px; text-align2:center;}
+</style>
+<script src="javascript.js"></script>
+<script type="text/javascript">
+let Result = ['', '', '', '', ''];
+
+let SlideIndex = 0;
+let SlidesNames = [];
+let Slides = [];
+SlidesNames.push('Alan Wake 2');
+Slides.push('https://www.youtube.com/embed/bZkgtM5AtmE');
+SlidesNames.push('Assassins Creed Mirage');
+Slides.push('https://www.youtube.com/embed/IRNOoOYVn80');
+SlidesNames.push('Atomic Heart');
+Slides.push('https://www.youtube.com/embed/0UBiw1xkHl8');
+SlidesNames.push('Baldurs Gate III');
+Slides.push('https://www.youtube.com/embed/XuCfkgaaa08');
+SlidesNames.push('Dead Island 2');
+Slides.push('https://www.youtube.com/embed/yiHalBhBMj4');
+SlidesNames.push('Diablo IV');
+Slides.push('https://www.youtube.com/embed/HukrLKMCz1I');
+SlidesNames.push('Final Fantasy XVI');
+Slides.push('https://www.youtube.com/embed/iaJ4VVFGIa8');
+SlidesNames.push('Hogwarts Legacy');
+Slides.push('https://www.youtube.com/embed/0PZCqMyMLTA');
+SlidesNames.push('Hrot');
+Slides.push('https://www.youtube.com/embed/QXPojFolKJo');
+SlidesNames.push('Kona II: Brume');
+Slides.push('https://www.youtube.com/embed/jaWOX4A2Z60');
+SlidesNames.push('Lies of P');
+Slides.push('https://www.youtube.com/embed/kXZoKdr-xeo');
+SlidesNames.push('Lords of the Fallen');
+Slides.push('https://www.youtube.com/embed/bX-dhAqXyKI');
+SlidesNames.push('Pizza Tower');
+Slides.push('https://www.youtube.com/embed/Wlq6fFOqI28');
+SlidesNames.push('Resident Evil 4');
+Slides.push('https://www.youtube.com/embed/Id2EaldBaWw');
+SlidesNames.push('RoboCop: Rogue City');
+Slides.push('https://www.youtube.com/embed/z5XGFgEUFzk');
+SlidesNames.push('Star Wars Jedi: Survivor');
+Slides.push('https://www.youtube.com/embed/VRaobDJjiec');
+SlidesNames.push('Starfield');
+Slides.push('https://www.youtube.com/embed/kfYEiTdsyas');
+
+function prevSlide() {
+	SlideIndex--;
+	if (SlideIndex < 0)
+		SlideIndex = Slides.length - 1;
+	document.getElementById('player').src = Slides[SlideIndex];
+	document.getElementById('slider-title').innerHTML = SlidesNames[SlideIndex];
+}
+
+function nextSlide() {
+	SlideIndex++;
+	if (SlideIndex > Slides.length - 1)
+		SlideIndex = 0;
+	document.getElementById('player').src = Slides[SlideIndex];
+	document.getElementById('slider-title').innerHTML = SlidesNames[SlideIndex];
+} 
+
+function CopyToClipboard(str) {
+	navigator.clipboard.writeText(str).then(function() {
+	}, function(err) {
+	});
+}
+
+function done() {
+	document.getElementById('results').value = '#РозовыйДжойстик2023\n';
+	document.getElementById('results').value += 'Игра года: ' + Result[0] + '\n';
+	document.getElementById('results').value += 'Лучший геймплей: ' + Result[1] + '\n';
+	document.getElementById('results').value += 'Лучшее окружение: ' + Result[2] + '\n';
+	document.getElementById('results').value += 'Лучшая сюжет: ' + Result[3] + '\n';
+	document.getElementById('results').value += 'Худшая игра года: ' + Result[4] + '\n';
+}
+
+function selectGame(em) {
+	let Items = em.parentNode.getElementsByClassName('item');
+	for (let i = 0; i < Items.length; i++) {
+		Items[i].setAttribute('style', 'opacity:0.3');
+	}
+	em.setAttribute('style', 'opacity:1');
+	//console.log(em.parentNode.getAttribute('nomination'), em.children[1].innerHTML);
+	Result[em.parentNode.getAttribute('nomination') - 1] = em.children[1].innerText;
+}
+
+//document.addEventListener("DOMContentLoaded", function(){alert('DOM готов');});
+</script>
+</head>
+<body>
+<div id="main-menu">
+<img id="logo" src="images/logo.png">
+<a href="#">Номинация 2023</a>
+</div>
+<div id="wrapper">
+<div id="title-block">
+	<div id="title">Игры 2023 года</div>
+	<div id="sub-title">Вспомним, что вышло в этом году</div>
+</div>
+
+<div id="slider">
+	<div id="left-btn" onclick="prevSlide()">◄</div>
+	<div id="player-container">
+		<div id="slider-title">Alan Wake 2</div>
+		<iframe id="player" width="710px" height="400px" src="https://www.youtube.com/embed/bZkgtM5AtmE" frameborder="0" allow="autoplay" allowfullscreen></iframe>
+	</div>
+	<div id="right-btn" onclick="nextSlide()">►</div>
+</div>
+
+
+<div id="title-block">
+	<div id="title">ИГРА ГОДА</div>
+	<div id="sub-title">Лучшая во всех смыслах игра</div>
+</div>
+
+<div id="titles" nomination="1">
+	<div class="item" onclick="selectGame(this)">
+		<div id="image"><img src="images/2023/alanwake2.jpg"></div>
+		<div id="name">Alan Wake 2</div>
+		<div id="developer">Remedy Entertainment</div>
+	</div>
+	<div class="item" onclick="selectGame(this)">
+		<div id="image"><img src="images/2023/acmirage.jpg"></div>
+		<div id="name">Assassin's Creed Mirage</div>
+		<div id="developer">Ubisoft</div>
+	</div>
+	<div class="item" onclick="selectGame(this)">
+		<div id="image"><img src="images/2023/atomicheart.jpg"></div>
+		<div id="name">Atomic Heart</div>
+		<div id="developer">Mundfish</div>
+	</div>
+	<div class="item" onclick="selectGame(this)">
+		<div id="image"><img src="images/2023/bg3.jpg"></div>
+		<div id="name">Baldur's Gate III</div>
+		<div id="developer">Larian Studios</div>
+	</div>
+	<div class="item" onclick="selectGame(this)">
+		<div id="image"><img src="images/2023/deadisland2.jpg"></div>
+		<div id="name">Dead Island 2</div>
+		<div id="developer">Deep Silver</div>
+	</div>
+	<div class="item" onclick="selectGame(this)">
+		<div id="image"><img src="images/2023/deadspace.jpg"></div>
+		<div id="name">Dead Space Remake</div>
+		<div id="developer">Motive Studio</div>
+	</div>
+	<div class="item" onclick="selectGame(this)">
+		<div id="image"><img src="images/2023/diablo4.jpg"></div>
+		<div id="name">Diablo IV</div>
+		<div id="developer">Blizzard Entertainment</div>
+	</div>
+	<div class="item" onclick="selectGame(this)">
+		<div id="image"><img src="images/2023/ff16.jpg"></div>
+		<div id="name">Final Fantasy XVI</div>
+		<div id="developer">Square Enix</div>
+	</div>
+	<div class="item" onclick="selectGame(this)">
+		<div id="image"><img src="images/2023/hogwartslegacy.jpg"></div>
+		<div id="name">Hogwarts Legacy</div>
+		<div id="developer">Avalanche Software</div>
+	</div>
+	<div class="item" onclick="selectGame(this)">
+		<div id="image"><img src="images/2023/hrot.jpg"></div>
+		<div id="name">Hrot</div>
+		<div id="developer">Spytihněv</div>
+	</div>
+	<div class="item" onclick="selectGame(this)">
+		<div id="image"><img src="images/2023/kona2.jpg"></div>
+		<div id="name">Kona II: Brume</div>
+		<div id="developer">Parabole</div>
+	</div>
+	<div class="item" onclick="selectGame(this)">
+		<div id="image"><img src="images/2023/liesofp.jpg"></div>
+		<div id="name">Lies of P</div>
+		<div id="developer">Neowiz Games</div>
+	</div>
+	<div class="item" onclick="selectGame(this)">
+		<div id="image"><img src="images/2023/lordsofthefallen.jpg"></div>
+		<div id="name">Lords of the Fallen</div>
+		<div id="developer">Hexworks</div>
+	</div>
+	<div class="item" onclick="selectGame(this)">
+		<div id="image"><img src="images/2023/pizzatower.jpg"></div>
+		<div id="name">Pizza Tower</div>
+		<div id="developer">Capcom</div>
+	</div>
+	<div class="item" onclick="selectGame(this)">
+		<div id="image"><img src="images/2023/re4.jpg"></div>
+		<div id="name">Resident Evil 4</div>
+		<div id="developer">Capcom</div>
+	</div>
+	<div class="item" onclick="selectGame(this)">
+		<div id="image"><img src="images/2023/robocoprg.jpg"></div>
+		<div id="name">RoboCop: Rogue City</div>
+		<div id="developer">Teyon</div>
+	</div>
+	<div class="item" onclick="selectGame(this)">
+		<div id="image"><img src="images/2023/starwarsjedisurvivor.jpg"></div>
+		<div id="name">Star Wars Jedi: Survivor</div>
+		<div id="developer">Respawn Entertainment</div>
+	</div>
+	<div class="item" onclick="selectGame(this)">
+		<div id="image"><img src="images/2023/starfield.jpg"></div>
+		<div id="name">Starfield</div>
+		<div id="developer">Bethesda Game Studios</div>
+	</div>
+</div>
+
+<div id="title-block">
+	<div id="title">Лучший геймплей</div>
+	<div id="sub-title">Наиболее интересный или инновационный геймплей</div>
+</div>
+
+<div id="titles" nomination="2">
+	<div class="item" onclick="selectGame(this)">
+		<div id="image"><img src="images/2023/alanwake2.jpg"></div>
+		<div id="name">Alan Wake 2</div>
+		<div id="developer">Remedy Entertainment</div>
+	</div>
+	<div class="item" onclick="selectGame(this)">
+		<div id="image"><img src="images/2023/acmirage.jpg"></div>
+		<div id="name">Assassin's Creed Mirage</div>
+		<div id="developer">Ubisoft</div>
+	</div>
+	<div class="item" onclick="selectGame(this)">
+		<div id="image"><img src="images/2023/atomicheart.jpg"></div>
+		<div id="name">Atomic Heart</div>
+		<div id="developer">Mundfish</div>
+	</div>
+	<div class="item" onclick="selectGame(this)">
+		<div id="image"><img src="images/2023/bg3.jpg"></div>
+		<div id="name">Baldur's Gate III</div>
+		<div id="developer">Larian Studios</div>
+	</div>
+	<div class="item" onclick="selectGame(this)">
+		<div id="image"><img src="images/2023/deadisland2.jpg"></div>
+		<div id="name">Dead Island 2</div>
+		<div id="developer">Deep Silver</div>
+	</div>
+	<div class="item" onclick="selectGame(this)">
+		<div id="image"><img src="images/2023/deadspace.jpg"></div>
+		<div id="name">Dead Space Remake</div>
+		<div id="developer">Motive Studio</div>
+	</div>
+	<div class="item" onclick="selectGame(this)">
+		<div id="image"><img src="images/2023/diablo4.jpg"></div>
+		<div id="name">Diablo IV</div>
+		<div id="developer">Blizzard Entertainment</div>
+	</div>
+	<div class="item" onclick="selectGame(this)">
+		<div id="image"><img src="images/2023/ff16.jpg"></div>
+		<div id="name">Final Fantasy XVI</div>
+		<div id="developer">Square Enix</div>
+	</div>
+	<div class="item" onclick="selectGame(this)">
+		<div id="image"><img src="images/2023/hogwartslegacy.jpg"></div>
+		<div id="name">Hogwarts Legacy</div>
+		<div id="developer">Avalanche Software</div>
+	</div>
+	<div class="item" onclick="selectGame(this)">
+		<div id="image"><img src="images/2023/hrot.jpg"></div>
+		<div id="name">Hrot</div>
+		<div id="developer">Spytihněv</div>
+	</div>
+	<div class="item" onclick="selectGame(this)">
+		<div id="image"><img src="images/2023/kona2.jpg"></div>
+		<div id="name">Kona II: Brume</div>
+		<div id="developer">Parabole</div>
+	</div>
+	<div class="item" onclick="selectGame(this)">
+		<div id="image"><img src="images/2023/liesofp.jpg"></div>
+		<div id="name">Lies of P</div>
+		<div id="developer">Neowiz Games</div>
+	</div>
+	<div class="item" onclick="selectGame(this)">
+		<div id="image"><img src="images/2023/lordsofthefallen.jpg"></div>
+		<div id="name">Lords of the Fallen</div>
+		<div id="developer">Hexworks</div>
+	</div>
+	<div class="item" onclick="selectGame(this)">
+		<div id="image"><img src="images/2023/pizzatower.jpg"></div>
+		<div id="name">Pizza Tower</div>
+		<div id="developer">Capcom</div>
+	</div>
+	<div class="item" onclick="selectGame(this)">
+		<div id="image"><img src="images/2023/re4.jpg"></div>
+		<div id="name">Resident Evil 4</div>
+		<div id="developer">Capcom</div>
+	</div>
+	<div class="item" onclick="selectGame(this)">
+		<div id="image"><img src="images/2023/robocoprg.jpg"></div>
+		<div id="name">RoboCop: Rogue City</div>
+		<div id="developer">Teyon</div>
+	</div>
+	<div class="item" onclick="selectGame(this)">
+		<div id="image"><img src="images/2023/starwarsjedisurvivor.jpg"></div>
+		<div id="name">Star Wars Jedi: Survivor</div>
+		<div id="developer">Respawn Entertainment</div>
+	</div>
+	<div class="item" onclick="selectGame(this)">
+		<div id="image"><img src="images/2023/starfield.jpg"></div>
+		<div id="name">Starfield</div>
+		<div id="developer">Bethesda Game Studios</div>
+	</div>
+</div>
+
+<div id="title-block">
+	<div id="title">Лучшее окружение</div>
+	<div id="sub-title">Наиболее интересный и захватывающий мир</div>
+</div>
+
+<div id="titles" nomination="3">
+	<div class="item" onclick="selectGame(this)">
+		<div id="image"><img src="images/2023/alanwake2.jpg"></div>
+		<div id="name">Alan Wake 2</div>
+		<div id="developer">Remedy Entertainment</div>
+	</div>
+	<div class="item" onclick="selectGame(this)">
+		<div id="image"><img src="images/2023/acmirage.jpg"></div>
+		<div id="name">Assassin's Creed Mirage</div>
+		<div id="developer">Ubisoft</div>
+	</div>
+	<div class="item" onclick="selectGame(this)">
+		<div id="image"><img src="images/2023/atomicheart.jpg"></div>
+		<div id="name">Atomic Heart</div>
+		<div id="developer">Mundfish</div>
+	</div>
+	<div class="item" onclick="selectGame(this)">
+		<div id="image"><img src="images/2023/bg3.jpg"></div>
+		<div id="name">Baldur's Gate III</div>
+		<div id="developer">Larian Studios</div>
+	</div>
+	<div class="item" onclick="selectGame(this)">
+		<div id="image"><img src="images/2023/deadisland2.jpg"></div>
+		<div id="name">Dead Island 2</div>
+		<div id="developer">Deep Silver</div>
+	</div>
+	<div class="item" onclick="selectGame(this)">
+		<div id="image"><img src="images/2023/deadspace.jpg"></div>
+		<div id="name">Dead Space Remake</div>
+		<div id="developer">Motive Studio</div>
+	</div>
+	<div class="item" onclick="selectGame(this)">
+		<div id="image"><img src="images/2023/diablo4.jpg"></div>
+		<div id="name">Diablo IV</div>
+		<div id="developer">Blizzard Entertainment</div>
+	</div>
+	<div class="item" onclick="selectGame(this)">
+		<div id="image"><img src="images/2023/ff16.jpg"></div>
+		<div id="name">Final Fantasy XVI</div>
+		<div id="developer">Square Enix</div>
+	</div>
+	<div class="item" onclick="selectGame(this)">
+		<div id="image"><img src="images/2023/hogwartslegacy.jpg"></div>
+		<div id="name">Hogwarts Legacy</div>
+		<div id="developer">Avalanche Software</div>
+	</div>
+	<div class="item" onclick="selectGame(this)">
+		<div id="image"><img src="images/2023/hrot.jpg"></div>
+		<div id="name">Hrot</div>
+		<div id="developer">Spytihněv</div>
+	</div>
+	<div class="item" onclick="selectGame(this)">
+		<div id="image"><img src="images/2023/kona2.jpg"></div>
+		<div id="name">Kona II: Brume</div>
+		<div id="developer">Parabole</div>
+	</div>
+	<div class="item" onclick="selectGame(this)">
+		<div id="image"><img src="images/2023/liesofp.jpg"></div>
+		<div id="name">Lies of P</div>
+		<div id="developer">Neowiz Games</div>
+	</div>
+	<div class="item" onclick="selectGame(this)">
+		<div id="image"><img src="images/2023/lordsofthefallen.jpg"></div>
+		<div id="name">Lords of the Fallen</div>
+		<div id="developer">Hexworks</div>
+	</div>
+	<div class="item" onclick="selectGame(this)">
+		<div id="image"><img src="images/2023/pizzatower.jpg"></div>
+		<div id="name">Pizza Tower</div>
+		<div id="developer">Capcom</div>
+	</div>
+	<div class="item" onclick="selectGame(this)">
+		<div id="image"><img src="images/2023/re4.jpg"></div>
+		<div id="name">Resident Evil 4</div>
+		<div id="developer">Capcom</div>
+	</div>
+	<div class="item" onclick="selectGame(this)">
+		<div id="image"><img src="images/2023/robocoprg.jpg"></div>
+		<div id="name">RoboCop: Rogue City</div>
+		<div id="developer">Teyon</div>
+	</div>
+	<div class="item" onclick="selectGame(this)">
+		<div id="image"><img src="images/2023/starwarsjedisurvivor.jpg"></div>
+		<div id="name">Star Wars Jedi: Survivor</div>
+		<div id="developer">Respawn Entertainment</div>
+	</div>
+	<div class="item" onclick="selectGame(this)">
+		<div id="image"><img src="images/2023/starfield.jpg"></div>
+		<div id="name">Starfield</div>
+		<div id="developer">Bethesda Game Studios</div>
+	</div>
+</div>
+
+<div id="title-block">
+	<div id="title">Лучшая сюжет</div>
+	<div id="sub-title">Самая интересныая и захватывающая история</div>
+</div>
+
+<div id="titles" nomination="4">
+	<div class="item" onclick="selectGame(this)">
+		<div id="image"><img src="images/2023/alanwake2.jpg"></div>
+		<div id="name">Alan Wake 2</div>
+		<div id="developer">Remedy Entertainment</div>
+	</div>
+	<div class="item" onclick="selectGame(this)">
+		<div id="image"><img src="images/2023/acmirage.jpg"></div>
+		<div id="name">Assassin's Creed Mirage</div>
+		<div id="developer">Ubisoft</div>
+	</div>
+	<div class="item" onclick="selectGame(this)">
+		<div id="image"><img src="images/2023/atomicheart.jpg"></div>
+		<div id="name">Atomic Heart</div>
+		<div id="developer">Mundfish</div>
+	</div>
+	<div class="item" onclick="selectGame(this)">
+		<div id="image"><img src="images/2023/bg3.jpg"></div>
+		<div id="name">Baldur's Gate III</div>
+		<div id="developer">Larian Studios</div>
+	</div>
+	<div class="item" onclick="selectGame(this)">
+		<div id="image"><img src="images/2023/deadisland2.jpg"></div>
+		<div id="name">Dead Island 2</div>
+		<div id="developer">Deep Silver</div>
+	</div>
+	<div class="item" onclick="selectGame(this)">
+		<div id="image"><img src="images/2023/deadspace.jpg"></div>
+		<div id="name">Dead Space Remake</div>
+		<div id="developer">Motive Studio</div>
+	</div>
+	<div class="item" onclick="selectGame(this)">
+		<div id="image"><img src="images/2023/diablo4.jpg"></div>
+		<div id="name">Diablo IV</div>
+		<div id="developer">Blizzard Entertainment</div>
+	</div>
+	<div class="item" onclick="selectGame(this)">
+		<div id="image"><img src="images/2023/ff16.jpg"></div>
+		<div id="name">Final Fantasy XVI</div>
+		<div id="developer">Square Enix</div>
+	</div>
+	<div class="item" onclick="selectGame(this)">
+		<div id="image"><img src="images/2023/hogwartslegacy.jpg"></div>
+		<div id="name">Hogwarts Legacy</div>
+		<div id="developer">Avalanche Software</div>
+	</div>
+	<div class="item" onclick="selectGame(this)">
+		<div id="image"><img src="images/2023/hrot.jpg"></div>
+		<div id="name">Hrot</div>
+		<div id="developer">Spytihněv</div>
+	</div>
+	<div class="item" onclick="selectGame(this)">
+		<div id="image"><img src="images/2023/kona2.jpg"></div>
+		<div id="name">Kona II: Brume</div>
+		<div id="developer">Parabole</div>
+	</div>
+	<div class="item" onclick="selectGame(this)">
+		<div id="image"><img src="images/2023/liesofp.jpg"></div>
+		<div id="name">Lies of P</div>
+		<div id="developer">Neowiz Games</div>
+	</div>
+	<div class="item" onclick="selectGame(this)">
+		<div id="image"><img src="images/2023/lordsofthefallen.jpg"></div>
+		<div id="name">Lords of the Fallen</div>
+		<div id="developer">Hexworks</div>
+	</div>
+	<div class="item" onclick="selectGame(this)">
+		<div id="image"><img src="images/2023/pizzatower.jpg"></div>
+		<div id="name">Pizza Tower</div>
+		<div id="developer">Capcom</div>
+	</div>
+	<div class="item" onclick="selectGame(this)">
+		<div id="image"><img src="images/2023/re4.jpg"></div>
+		<div id="name">Resident Evil 4</div>
+		<div id="developer">Capcom</div>
+	</div>
+	<div class="item" onclick="selectGame(this)">
+		<div id="image"><img src="images/2023/robocoprg.jpg"></div>
+		<div id="name">RoboCop: Rogue City</div>
+		<div id="developer">Teyon</div>
+	</div>
+	<div class="item" onclick="selectGame(this)">
+		<div id="image"><img src="images/2023/starwarsjedisurvivor.jpg"></div>
+		<div id="name">Star Wars Jedi: Survivor</div>
+		<div id="developer">Respawn Entertainment</div>
+	</div>
+	<div class="item" onclick="selectGame(this)">
+		<div id="image"><img src="images/2023/starfield.jpg"></div>
+		<div id="name">Starfield</div>
+		<div id="developer">Bethesda Game Studios</div>
+	</div>
+</div>
+
+<div id="title-block">
+	<div id="title">Худшая игра года</div>
+	<div id="sub-title">Наиболее отвратительная игра</div>
+</div>
+
+<div id="titles" nomination="5">
+	<div class="item" onclick="selectGame(this)">
+		<div id="image"><img src="images/2023/alanwake2.jpg"></div>
+		<div id="name">Alan Wake 2</div>
+		<div id="developer">Remedy Entertainment</div>
+	</div>
+	<div class="item" onclick="selectGame(this)">
+		<div id="image"><img src="images/2023/acmirage.jpg"></div>
+		<div id="name">Assassin's Creed Mirage</div>
+		<div id="developer">Ubisoft</div>
+	</div>
+	<div class="item" onclick="selectGame(this)">
+		<div id="image"><img src="images/2023/atomicheart.jpg"></div>
+		<div id="name">Atomic Heart</div>
+		<div id="developer">Mundfish</div>
+	</div>
+	<div class="item" onclick="selectGame(this)">
+		<div id="image"><img src="images/2023/bg3.jpg"></div>
+		<div id="name">Baldur's Gate III</div>
+		<div id="developer">Larian Studios</div>
+	</div>
+	<div class="item" onclick="selectGame(this)">
+		<div id="image"><img src="images/2023/deadisland2.jpg"></div>
+		<div id="name">Dead Island 2</div>
+		<div id="developer">Deep Silver</div>
+	</div>
+	<div class="item" onclick="selectGame(this)">
+		<div id="image"><img src="images/2023/deadspace.jpg"></div>
+		<div id="name">Dead Space Remake</div>
+		<div id="developer">Motive Studio</div>
+	</div>
+	<div class="item" onclick="selectGame(this)">
+		<div id="image"><img src="images/2023/diablo4.jpg"></div>
+		<div id="name">Diablo IV</div>
+		<div id="developer">Blizzard Entertainment</div>
+	</div>
+	<div class="item" onclick="selectGame(this)">
+		<div id="image"><img src="images/2023/ff16.jpg"></div>
+		<div id="name">Final Fantasy XVI</div>
+		<div id="developer">Square Enix</div>
+	</div>
+	<div class="item" onclick="selectGame(this)">
+		<div id="image"><img src="images/2023/hogwartslegacy.jpg"></div>
+		<div id="name">Hogwarts Legacy</div>
+		<div id="developer">Avalanche Software</div>
+	</div>
+	<div class="item" onclick="selectGame(this)">
+		<div id="image"><img src="images/2023/hrot.jpg"></div>
+		<div id="name">Hrot</div>
+		<div id="developer">Spytihněv</div>
+	</div>
+	<div class="item" onclick="selectGame(this)">
+		<div id="image"><img src="images/2023/kona2.jpg"></div>
+		<div id="name">Kona II: Brume</div>
+		<div id="developer">Parabole</div>
+	</div>
+	<div class="item" onclick="selectGame(this)">
+		<div id="image"><img src="images/2023/liesofp.jpg"></div>
+		<div id="name">Lies of P</div>
+		<div id="developer">Neowiz Games</div>
+	</div>
+	<div class="item" onclick="selectGame(this)">
+		<div id="image"><img src="images/2023/lordsofthefallen.jpg"></div>
+		<div id="name">Lords of the Fallen</div>
+		<div id="developer">Hexworks</div>
+	</div>
+	<div class="item" onclick="selectGame(this)">
+		<div id="image"><img src="images/2023/pizzatower.jpg"></div>
+		<div id="name">Pizza Tower</div>
+		<div id="developer">Capcom</div>
+	</div>
+	<div class="item" onclick="selectGame(this)">
+		<div id="image"><img src="images/2023/re4.jpg"></div>
+		<div id="name">Resident Evil 4</div>
+		<div id="developer">Capcom</div>
+	</div>
+	<div class="item" onclick="selectGame(this)">
+		<div id="image"><img src="images/2023/robocoprg.jpg"></div>
+		<div id="name">RoboCop: Rogue City</div>
+		<div id="developer">Teyon</div>
+	</div>
+	<div class="item" onclick="selectGame(this)">
+		<div id="image"><img src="images/2023/starwarsjedisurvivor.jpg"></div>
+		<div id="name">Star Wars Jedi: Survivor</div>
+		<div id="developer">Respawn Entertainment</div>
+	</div>
+	<div class="item" onclick="selectGame(this)">
+		<div id="image"><img src="images/2023/starfield.jpg"></div>
+		<div id="name">Starfield</div>
+		<div id="developer">Bethesda Game Studios</div>
+	</div>
+</div>
+
+<div id="title-block">
+	<div id="title">Ваши результаты</div>
+	<div id="sub-title">Отправьте для подсчёта</div>
+</div>
+
+<br>
+<div class="button" onclick="done()">Результаты</div><br>
+<textarea id="results"></textarea>
+<br><br>
+<div class="button" onclick="CopyToClipboard(document.getElementById('results').value);alert('Скопировано в буфер обмена');">Скопировать в буфер</div><br>
+
+<div id="footer">© 2023, Розовый джойстик - ежегодная игровая номинация игр от народа</div>
+</div>
+</body>
+</html>
